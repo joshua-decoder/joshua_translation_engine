@@ -10,10 +10,20 @@ translations of documents http requests as responses to http requests.
 
 ## Use
 
+### Installation
+
+install the dependencies with `pip`:
+
+    pip install -r requirements.txt
+
 ### Starting the translation engine
 
-The first command line argument is the directory containing the Joshua Bundle
-to run as a TCP server.
+Run the command:
+
+    python app.py
+
+**TODO:** The first command line argument is the directory containing the
+Joshua Bundle to run as a TCP server.
 
 ### Requesting translations
 
