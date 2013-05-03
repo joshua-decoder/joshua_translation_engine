@@ -52,10 +52,10 @@ class TranslationEngine(Resource):
         translation = decoders[lang_pair].translate(input_text)
         return translation, 201
 
-api.add_resource(TranslationEngine, '/')
 api.add_resource(TranslationEngine, '/joshua/translate/<string:target_lang>')
 
 if __name__ == '__main__':
     lang_pair = ('Spanish', 'English')
     decoders[lang_pair] = Decoder(*lang_pair)
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
+    #app.run()
