@@ -1,10 +1,8 @@
 import argparse
-import os
-import socket
-import subprocess
 import sys
 from flask import Flask
 from flask.ext.restful import reqparse, Api, Resource
+from decoder import Decoder
 from languages import new_lang_from_short_name, new_lang_from_long_english_name
 
 DEFAULT_TCP_PORT=56748
@@ -17,42 +15,6 @@ http_parser.add_argument('inputText', type=str, location='json')
 http_parser.add_argument('inputLanguage', type=str, location='json')
 
 decoders = {}
-
-
-class Decoder(object):
-    """
-    Joshua decoder
-    """
-    def __init__(self, bundle_dir, port):
-        self._bundle_dir = bundle_dir
-        self._start_decoder_server()
-
-    @property
-    def bundle_dir(self):
-        return self._bundle_dir
-
-    @property
-    def source_lang(self):
-        return self._source_lang
-
-    @property
-    def target_lang(self):
-        return self._target_lang
-
-    def translate(self, input_text):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect(('localhost', port))
-        sock.send('%s\n' % input_text)
-        result = sock.recv(1024)
-        return {
-            'outputText': '"%s" is a translation of %s.'
-            % (result, input_text)
-        }
-
-    def _start_decoder_server(self):
-        runner_path = os.path.join(self.bundle_dir, 'run-joshua.sh')
-        options = ['-server-port', str(port)]
-        subprocess.Popen([runner_path] + options, env=os.environ)
 
 
 class TranslationEngine(Resource):
