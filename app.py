@@ -5,6 +5,7 @@ import subprocess
 import sys
 from flask import Flask
 from flask.ext.restful import reqparse, Api, Resource
+from languages import new_lang_from_short_name, new_lang_from_long_english_name
 
 DEFAULT_TCP_PORT=56748
 
@@ -60,13 +61,12 @@ class TranslationEngine(Resource):
     translations from the relevant Joshua decoder, postprocessing and returning
     the results.
     """
-    def post(self, target_lang):
+    def post(self, target_lang_code):
         args = http_parser.parse_args()
-        source_lang = args['inputLanguage']
+        source_lang = new_lang_from_long_english_name(args['inputLanguage'])
+        target_lang = new_lang_from_long_english_name(target_lang_code)
         input_text = args['inputText']
-        lang_pair = (source_lang, target_lang.capitalize())
-        print source_lang
-        print input_text
+        lang_pair = (source_lang.short_name, target_lang.short_name)
         translation = decoders[lang_pair].translate(input_text)
         return translation, 201
 
@@ -160,7 +160,10 @@ def handle_cli_args(argv):
 
     return parsed_args
 
-api.add_resource(TranslationEngine, '/joshua/translate/<string:target_lang>')
+api.add_resource(
+    TranslationEngine,
+    '/joshua/translate/<string:target_lang_code>'
+)
 
 if __name__ == '__main__':
 
