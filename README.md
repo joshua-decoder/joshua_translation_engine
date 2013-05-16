@@ -1,7 +1,7 @@
 joshua_translation_engine
 =========================
 
-RESTful wrapper for the Joshua machine translation decoder
+RESTful wrapper for the [Joshua machine translation decoder](https://github.com/joshua-decoder/joshua)
 
 
 ## Description
