@@ -4,6 +4,7 @@ from flask import Flask
 from flask.ext.restful import reqparse, Api, Resource
 from decoder import Decoder
 from languages import new_lang_from_short_name, new_lang_from_long_english_name
+from text import PreProcessor
 
 DEFAULT_TCP_PORT=56748
 
