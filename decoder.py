@@ -1,11 +1,9 @@
 import os
 import socket
 import subprocess
-import sys
+import env
 
-if not os.environ.get('JOSHUA'):
-    sys.stderr.write('FATAL: the JOSHUA environment variable is not set.\n')
-    sys.exit(-1)
+env.assert_valid_env()
 
 
 class Decoder(object):
