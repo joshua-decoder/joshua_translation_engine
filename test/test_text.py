@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import text
+import mock
 
 
 class TestPreProcessor(unittest.TestCase):
@@ -19,7 +20,7 @@ class TestPreProcessor(unittest.TestCase):
             unicode('La Piedad del Vaticano es un grupo escultórico en mármol realizado por Miguel Ángel entre 1498 y 1499 .', encoding='utf-8'),
             unicode('Sus dimensiones son 174 por 195 cm .', encoding='utf-8'),
             unicode('Se encuentra en la Basílica de San Pedro del Vaticano .', encoding='utf-8'),
-        ] 
+        ]
         actual = text.tokenize('es', sentences)
         self.assertEqual(expect, actual)
 
@@ -32,5 +33,6 @@ class TestPreProcessor(unittest.TestCase):
                 unicode('se encuentra en la basílica de san pedro del vaticano .', encoding='utf-8'),
             ]
         )
-        actual = text.PreProcessor('spanish').prepare(input_text)
+        lang_aliases = mock.Mock(long_english_name='spanish', short_name='es')
+        actual = text.PreProcessor(lang_aliases).prepare(input_text)
         self.assertEqual(expect, actual)

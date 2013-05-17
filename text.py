@@ -52,15 +52,15 @@ class PreProcessor(object):
     3. lowercasing
     4. joining sentences with '\n'
     """
-    def __init__(self, lang_long_name):
-        self._lang = lang_long_name
+    def __init__(self, lang_aliases):
+        self._lang = lang_aliases
         self._sentence_splitter = nltk.data.load(
-            'tokenizers/punkt/%s.pickle' % lang_long_name
+            'tokenizers/punkt/%s.pickle' % lang_aliases.long_english_name
         ).tokenize
 
     def prepare(self, text):
         sentences = self._sentence_splitter(text)
-        tokenized_sentences = tokenize(self._lang, sentences)
+        tokenized_sentences = tokenize(self._lang.short_name, sentences)
         lc_tokenized_sentences = [sent.lower() for sent in tokenized_sentences]
         return '\n'.join(lc_tokenized_sentences)
 
