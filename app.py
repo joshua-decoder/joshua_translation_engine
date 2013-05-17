@@ -12,7 +12,7 @@ app = Flask(__name__)
 api = Api(app)
 
 http_parser = reqparse.RequestParser()
-http_parser.add_argument('inputText', type=str, location='json')
+http_parser.add_argument('inputText', type=unicode, location='json')
 http_parser.add_argument('inputLanguage', type=str, location='json')
 
 decoders = {}
@@ -26,13 +26,16 @@ class TranslationEngine(Resource):
     """
     def post(self, target_lang_code):
         args = http_parser.parse_args()
+
         source_lang = new_lang_from_long_english_name(args['inputLanguage'])
         target_lang = new_lang_from_long_english_name(target_lang_code)
-        input_text = args['inputText']
         lang_pair = (source_lang.short_name, target_lang.short_name)
-        translation = decoders[lang_pair].translate(input_text)
-        return translation, 201
 
+        input_text = PreProcessor(source_lang).prepare(args['inputText'])
+        translation = decoders[lang_pair].translate(input_text)
+
+        response = {'outputText': translation}
+        return response, 201
 
 def handle_cli_args(argv):
     """
@@ -109,11 +112,14 @@ def handle_cli_args(argv):
 
     # Sanity check: a TCP port is assigned for each Joshua decoder.
     num_bundles = len(parsed_args.bundle_dir)
+
     if parsed_args.port == []:
         parsed_args.port = [DEFAULT_TCP_PORT + i for i in range(num_bundles)]
+
     elif len(parsed_args.port) == 1 and 1 < num_bundles:
         initial_port = parsed_args.port[0]
         parsed_args.port = [initial_port + i for i in range(num_bundles)]
+
     elif len(parsed_args.port) != num_bundles:
         sys.stderr.write(
             'ERROR: TCP ports specified incorrectly.\n'
@@ -134,6 +140,7 @@ if __name__ == '__main__':
     for idx, bundle_confs in enumerate(zip(args.bundle_dir, args.port)):
         bundle, port = bundle_confs
         decoder = Decoder(bundle, port)
+        decoder.start_decoder_server()
         lang_pair = (args.source_lang[idx], args.target_lang[idx])
         decoders[lang_pair] = decoder
 
