@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from decoder import Decoder
-from mock import patch, Mock
+from mock import Mock
 
 
 class TestDecoder(unittest.TestCase):

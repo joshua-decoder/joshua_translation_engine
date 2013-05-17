@@ -3,10 +3,10 @@ import sys
 from flask import Flask
 from flask.ext.restful import reqparse, Api, Resource
 from decoder import Decoder
-from languages import new_lang_from_short_name, new_lang_from_long_english_name
+from languages import new_lang_from_long_english_name
 from text import PreProcessor
 
-DEFAULT_TCP_PORT=56748
+DEFAULT_TCP_PORT = 56748
 
 app = Flask(__name__)
 api = Api(app)
@@ -36,6 +36,7 @@ class TranslationEngine(Resource):
 
         response = {'outputText': translation}
         return response, 201
+
 
 def handle_cli_args(argv):
     """
@@ -98,11 +99,11 @@ def handle_cli_args(argv):
     # Sanity check: source and target languages specified for each Joshua
     # bundle
     num_bundles = len(parsed_args.bundle_dir)
-    if (
-            len(parsed_args.source_lang) != num_bundles
-            or
-            len(parsed_args.target_lang) != num_bundles
-        ):
+    mismatched_num_of_ports = (
+        len(parsed_args.source_lang) != num_bundles or
+        len(parsed_args.target_lang) != num_bundles
+    )
+    if mismatched_num_of_ports:
         sys.stderr.write(
             'ERROR: For each bundle, source and target languages must be '
             'specified.\n'
