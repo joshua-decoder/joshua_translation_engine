@@ -4,7 +4,7 @@ from flask import Flask
 from flask.ext.restful import reqparse, Api, Resource
 from decoder import Decoder
 from languages import new_lang_from_long_english_name
-from text import PreProcessor
+from text import PreProcessor, PostProcessor
 
 DEFAULT_TCP_PORT = 56748
 
@@ -32,7 +32,9 @@ class TranslationEngine(Resource):
         lang_pair = (source_lang.short_name, target_lang.short_name)
 
         input_text = PreProcessor(source_lang).prepare(args['inputText'])
-        translation = decoders[lang_pair].translate(input_text)
+        translation = PostProcessor(target_lang).prepare(
+            decoders[lang_pair].translate(input_text)
+        )
 
         response = {'outputText': translation}
         return response, 201
