@@ -81,10 +81,19 @@ class PreProcessor(object):
         ).tokenize
 
     def prepare(self, text):
-        sentences = self._sentence_splitter(text)
-        tokenized_sentences = tokenize(self._lang.short_name, sentences)
-        lc_tokenized_sentences = [sent.lower() for sent in tokenized_sentences]
-        return '\n'.join(lc_tokenized_sentences)
+        paragraphs = text.split('\n')
+        results = []
+        for paragraph in paragraphs:
+            if not paragraph:
+                results.append('')
+                continue
+            sentences = self._sentence_splitter(paragraph)
+            tokenized_sentences = tokenize(self._lang.short_name, sentences)
+            lc_tokenized_sentences = [
+                sent.lower() for sent in tokenized_sentences
+            ]
+            results.extend(lc_tokenized_sentences)
+        return '\n'.join(results)
 
 
 def merge_lines(translation):

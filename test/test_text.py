@@ -91,6 +91,16 @@ duis aute irure dolor in fugiat nulla pariatur .
 excepteur sint occaecat , mollit anim id est laborum .""".decode('utf8')
 
 
+class TestLoremPreProcessor(unittest.TestCase):
+
+    def test_prepare(self):
+        input_text = lorem
+        expect = lorem_tok_lc
+        lang_aliases = mock.Mock(long_english_name='spanish', short_name='es')
+        actual = text.PreProcessor(lang_aliases).prepare(input_text)
+        self.assertEqual(expect, actual)
+
+
 class TestPostProcessor(unittest.TestCase):
 
     def test_merge_sentences(self):
