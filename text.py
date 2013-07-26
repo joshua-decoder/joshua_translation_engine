@@ -76,6 +76,7 @@ class PreProcessor(object):
     """
     def __init__(self, lang_aliases):
         self._lang = lang_aliases
+        assert lang_aliases.long_english_name != 'es'
         self._sentence_splitter = nltk.data.load(
             'tokenizers/punkt/%s.pickle' % lang_aliases.long_english_name
         ).tokenize
@@ -116,7 +117,7 @@ def merge_lines(translation):
             if next_line == '':
                 result += u'\n\n'
             else:
-                result = u'{} {}'.format(result, next_line)
+                result = u'{0} {1}'.format(result, next_line)
 
         prev_line = next_line
 

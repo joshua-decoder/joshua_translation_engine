@@ -5,9 +5,11 @@ import languages
 class TestLanguageAliasesObj(unittest.TestCase):
 
     def test_new_lang_from_short_name_valid(self):
-        self.assertIsInstance(
-            languages.new_lang_from_short_name('en'),
-            languages.LanguageAliases
+        self.assertTrue(
+            isinstance(
+                languages.new_lang_from_short_name('en'),
+                languages.LanguageAliases
+            )
         )
 
     def test_new_lang_from_short_name_valid_short(self):

@@ -6,13 +6,13 @@ LANGUAGE_ALIASES = [
     (u'de', u'german'),
 ]
 
-LANGUAGE_NAMES_FROM_SHORT = {
-    short: (short, long_) for short, long_ in LANGUAGE_ALIASES
-}
+LANGUAGE_NAMES_FROM_SHORT = dict(
+    (short, (short, long_)) for (short, long_) in LANGUAGE_ALIASES
+)
 
-LANGUAGE_NAMES_FROM_LONG_ENGLISH = {
-    long_: (short, long_) for short, long_ in LANGUAGE_ALIASES
-}
+LANGUAGE_NAMES_FROM_LONG_ENGLISH = dict(
+    (long_, (short, long_)) for (short, long_) in LANGUAGE_ALIASES
+)
 
 
 class LanguageAliases(object):
