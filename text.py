@@ -7,12 +7,12 @@ import env
 env.assert_valid_env()
 
 
-def _penn_treebank_tokenize(lang_short_code, text):
+def _tokenize(lang_short_code, text):
     runner_path = os.path.join(
         os.environ['JOSHUA'],
         'scripts',
-        'training',
-        'penn-treebank-tokenizer.perl'
+        'preparation',
+        'tokenize.pl'
     )
     options = ['-l', lang_short_code]
     p = Popen(
@@ -27,12 +27,12 @@ def _penn_treebank_tokenize(lang_short_code, text):
     return unicode(out.strip(), encoding='utf8').split('\n')
 
 
-def _penn_treebank_detokenize(lang_short_code, text):
+def _detokenize(lang_short_code, text):
     runner_path = os.path.join(
         os.environ['JOSHUA'],
         'scripts',
-        'training',
-        'penn-treebank-detokenizer.perl'
+        'preparation',
+        'detokenize.pl'
     )
     options = ['-l', lang_short_code]
     p = Popen(
@@ -56,7 +56,7 @@ def tokenize(lang_short_code, sentences):
 
     text = '\n'.join(sentences)
 
-    return _penn_treebank_tokenize(lang_short_code, text)
+    return _tokenize(lang_short_code, text)
 
 
 def detokenize(sentence):
@@ -135,7 +135,7 @@ class PostProcessor(object):
         """
         Expected format of text is one sentence per line
         """
-        text = _penn_treebank_detokenize(self._lang.short_name, text)
+        text = _detokenize(self._lang.short_name, text)
         lines = text.split('\n')
         lines = [line.capitalize() for line in lines]
         return merge_lines('\n'.join(lines))
