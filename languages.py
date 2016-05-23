@@ -1,9 +1,23 @@
 import sys
 
 LANGUAGE_ALIASES = [
+    (u'cz', u'czech'),
+    (u'da', u'danish'),
+    (u'nl', u'dutch'),
     (u'en', u'english'),
-    (u'es', u'spanish'),
+    (u'et', u'estonian'),
+    (u'fi', u'finnish'),
+    (u'fr', u'french'),
     (u'de', u'german'),
+    (u'el', u'greek'),
+    (u'it', u'italian'),
+    (u'no', u'norwegian'),
+    (u'pl', u'polish'),
+    (u'pt', u'portuguese'),
+    (u'sl', u'slovene'),
+    (u'es', u'spanish'),
+    (u'sv', u'swedish'),
+    (u'tr', u'turkish'),
 ]
 
 LANGUAGE_NAMES_FROM_SHORT = dict(
@@ -13,7 +27,6 @@ LANGUAGE_NAMES_FROM_SHORT = dict(
 LANGUAGE_NAMES_FROM_LONG_ENGLISH = dict(
     (long_, (short, long_)) for (short, long_) in LANGUAGE_ALIASES
 )
-
 
 class LanguageAliases(object):
     """
