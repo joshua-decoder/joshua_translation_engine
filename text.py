@@ -76,7 +76,7 @@ class PreProcessor(object):
     """
     def __init__(self, lang_aliases):
         self._lang = lang_aliases
-        if lang_aliases.long_english_name != 'ar':
+        if lang_aliases.long_english_name != 'arabic':
             self._sentence_splitter = nltk.data.load(
                 'tokenizers/punkt/%s.pickle' % lang_aliases.long_english_name
             ).tokenize
