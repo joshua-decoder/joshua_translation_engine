@@ -1,6 +1,7 @@
 import sys
 
 LANGUAGE_ALIASES = [
+    (u'ar', u'arabic'),
     (u'cz', u'czech'),
     (u'da', u'danish'),
     (u'nl', u'dutch'),
