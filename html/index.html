@@ -60,102 +60,129 @@
     </div>
 
     <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Input</h3>
-        </div>
-        <div class="panel-body">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter text to paraphrase"
-                   id="sourceTxt" autofocus="autofocus" size=100 />
-          </div>
-
-          <!--
-          <select id="ppdb_size">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL" selected="selected">XL</option>
-            <option value="XXL">XXL</option>
-            <option value="XXXL">XXXL</option>
-          </select>
-          <select id="ppdb_type">
-            <option value="all" selected="selected">All</option>
-            <option value="lex">Lexical</option>
-            <option value="phrasal">Phrasal</option>
-            <option value="syntactic">Syntactic</option>
-          </select>
-          -->
-
-        </div>
+      <div>
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#input">Input</a></li>
+          <li><a data-toggle="tab" href="#rules">Rules</a></li>
+          <li><a data-toggle="tab" href="#params">Parameters</a></li>
+        </ul>
       </div>
+    
+      <div class="tab-content">
+        <div id="input" class="tab-pane fade in active">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Input</h3>
+            </div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><a data-toggle="collapse" href="#params">Parameters</a></h3>
-        </div>
-        <div id="params" class="panel-collapse collapse">
-          <div class="panel-body">
-            <div class="col-md-4">
-              <div class="input-group">
-                <span class="input-group-addon" id="label-host">Host</span>
-                <input type="text" class="form-control" value="127.0.0.1" size="15" id="server_host"
-                       aria-describedby="label-host" />
-                <span class="input-group-addon" id="label-port">Port</span>
-                <input type="text" class="form-control" value="5674" size="5" id="server_port"
-                       aria-describedby="label-port" />
-              </div>
-              <br/>
-
-              <h5>Feature weights</h5>
-              <div id="feature_weights">
-                <div class="input-group">
-                  <span class="input-group-addon" id="label-lm">LM weight</span>
-                  <input type="text" class="form-control" value="1.0" size="8" id="lm_weight"
-                         aria-describedby="label-lm" />
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-8">
+                  <fieldset class="form-group">
+                    <textarea class="form-control" id="sourceTxt" rows="5"></textarea>
+                  </fieldset>
+                  <!-- <input type="text" class="form-control" placeholder="Enter text to paraphrase" -->
+                              <!--        id="sourceTxt" autofocus="autofocus" size=100 /> -->
                 </div>
-                <button type="button" class="btn btn-primary-outline" id="add_weight">+</button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Custom rules</h3>
+              <!--
+              <select id="ppdb_size">
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL" selected="selected">XL</option>
+                <option value="XXL">XXL</option>
+                <option value="XXXL">XXXL</option>
+              </select>
+              <select id="ppdb_type">
+                <option value="all" selected="selected">All</option>
+                <option value="lex">Lexical</option>
+                <option value="phrasal">Phrasal</option>
+                <option value="syntactic">Syntactic</option>
+              </select>
+              -->
+
+          </div>
         </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-lg-4">
-              <form class="form-inline">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Source phrase"
-                       id="sourcePhrase" size=20 />
-                <input type="text" class="form-control" placeholder="Target phrase"
-                       id="targetPhrase" size=20 />
+
+        <div id="rules" class="tab-pane fade">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Rules</h3>
+            </div>
+
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-8">
+                  <form class="form-inline">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="source side ||| target side"
+                             id="addPhrase" size=40>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="add_rule">Add Phrase</button>
+                  </form>
+
+                </div>
               </div>
-            <button type="button" class="btn btn-primary" id="add_weight">Add</button>
-              </form>
             </div>
           </div>
         </div>
+
+        <div id="params" class="tab-pane fade">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Parameters</h3>
+            </div>
+            <div id="params" class="panel-body">
+              <div class="panel-body">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="label-host">Host</span>
+                    <input type="text" class="form-control" value="127.0.0.1" size="15" id="server_host"
+                           aria-describedby="label-host" />
+                    <span class="input-group-addon" id="label-port">Port</span>
+                    <input type="text" class="form-control" value="5674" size="5" id="server_port"
+                           aria-describedby="label-port" />
+                  </div>
+                  <br/>
+
+                  <h5>Feature weights</h5>
+                  <div id="feature_weights">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="label-lm">LM weight</span>
+                      <input type="text" class="form-control" value="1.0" size="8" id="lm_weight"
+                             aria-describedby="label-lm" />
+                    </div>
+                    <button type="button" class="btn btn-primary-outline" id="add_weight">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Output</h3>
         </div>
-        <div class="panel-body" id="output">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-8" id="output">
+            </div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <hr/>
+    <hr/>
 
-      <footer>
-        <p>&copy; 2016 Johns Hopkins University</p>
-      </footer>
-    </div> <!-- /container -->
+    <!-- <footer> -->
+    <!--   <p>&copy;  Johns Hopkins University</p> -->
+    <!-- </footer> -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
