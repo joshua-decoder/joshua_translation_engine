@@ -23,6 +23,9 @@ install the dependencies with `pip`:
 
     pip install -r requirements.txt
 
+Once this has been run, ensure that the the [NLTK Data packages are installed](http://www.nltk.org/data.html#command-line-installation). This can be done as shown below... it will take a while.
+
+    sudo python -m nltk.downloader -d /usr/local/share/nltk_data all
 
 ### Starting the translation engine
 
