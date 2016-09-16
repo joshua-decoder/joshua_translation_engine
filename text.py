@@ -76,10 +76,14 @@ class PreProcessor(object):
     """
     def __init__(self, lang_aliases):
         self._lang = lang_aliases
-        assert lang_aliases.long_english_name != 'es'
-        self._sentence_splitter = nltk.data.load(
-            'tokenizers/punkt/%s.pickle' % lang_aliases.long_english_name
-        ).tokenize
+        if lang_aliases.long_english_name != 'arabic':
+            self._sentence_splitter = nltk.data.load(
+                'tokenizers/punkt/%s.pickle' % lang_aliases.long_english_name
+            ).tokenize
+        else:
+            # a simpler, regular-expression based tokenizer, which splits 
+            # text on whitespace and punctuation.
+            self._sentence_splitter = nltk.tokenize.wordpunct_tokenize
 
     def prepare(self, text):
         paragraphs = text.split('\n')
